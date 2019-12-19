@@ -14,7 +14,7 @@ def stats(image):
 start = time.time()
 np.seterr(all='ignore')
 
-path, dirs, files = next(os.walk("F:\Thesis\Images\Arctic\\2014-2015"))
+path, dirs, files = next(os.walk("F:\Thesis\Images\Antarctic\\2018-2019"))
 print(f"Found {len(files)} files.")
 a = []
 
@@ -42,7 +42,7 @@ for i, j in enumerate(files):
 		metadata["start_of_data_set_utc_time_of_day"],
 		subtracted.size,s['total_dust_pixels'],s['mean_dust_pixel_value'],s['std_dust_pixel_value']])
 
-with open('2014-2015.csv', 'w', newline='') as outfile:
+with open('2018-2019.csv', 'w', newline='') as outfile:
 	wr = csv.writer(outfile)
 	wr.writerows(a)
 print(f"\nTotal time elapsed for {len(files)} files: {datetime.timedelta(seconds=time.time() - start)}s")
