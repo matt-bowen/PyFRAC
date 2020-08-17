@@ -3,6 +3,8 @@
 Created on Sat Aug 17 19:09:58 2019
 
 @author: Matthew
+
+Image class. Requires gdal to pull the data records 
 """
 import numpy as np
 import gdal
@@ -41,8 +43,7 @@ class image:
         return {"quality_indicator_bit_field": scans["quality_indicator_bit_field"],
                 "scan_line_quality_flags": scans["scan_line_quality_flags"],
                 "calibration_quality_flags": scans["calibration_quality_flags"]}
-        
-    
+          
     def get_data_counts(self):
         dataset = gdal.Open(self.filename, gdal.GA_ReadOnly)
         band4 = dataset.GetRasterBand(4)

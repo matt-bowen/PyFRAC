@@ -4,7 +4,7 @@ Created on Sat Aug 17 19:07:37 2019
 
 @author: Matthew
 Adapted from pygac/gac_klm: https://github.com/pytroll/pygac/blob/master/pygac/gac_klm.py
-Adapted for AVHRR FRAC datasets
+for AVHRR FRAC datasets
 """
 import numpy as np
 
@@ -110,6 +110,8 @@ header = np.dtype([("data_set_creation_site_id", "S3"),
                    ("ch_5_constant_1", ">i4"),
                    ("ch_5_constant_2", ">i4"),
                    ("zero_fill6", ">i4", (3, )),
+                   # EVERYTHING AFTER HERE HAS NOT BEEN VERIFIED TO BE CORRECT 
+                   # AND IS NOT CONSISTENT WITH TABLE 8.3.1.3.2.2-1 OF KLM USER'S GUIDE
                    # NAVIGATION
                    ("reference_ellipsoid_model_id", "S8"),
                    ("nadir_earth_location_tolerance", ">u2"),
@@ -406,7 +408,10 @@ scanline = np.dtype([("scan_line_number", ">u2"),
                      ("frame_sync", ">u2", (6, )),
                      ("id", ">u2", (2, )),
                      ("time_code", ">u2", (4, )),
-                     ("telemetry", ">u2", (10, )),
+                     ('telemetry', [("ramp_calibration", '>u2', (5, )),
+                                    ("PRT", '>u2', (3, )),
+                                    ("ch3_patch_temp", '>u2'),
+                                    ("spare", '>u2'), ]),
                      ("back_scan", ">u2", (30, )),
                      ("space_data", ">u2", (50, )),
                      ("sync_delta", ">u2"),

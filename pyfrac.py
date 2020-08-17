@@ -1,3 +1,12 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Sat Aug 17 19:30:27 2019
+
+@author: Matthew
+
+PyFRAC runtime script. Run from terminal using "python pyfrac.py"
+"""
+
 import time, datetime, csv
 import numpy as np
 import os
@@ -14,7 +23,7 @@ def stats(image):
 start = time.time()
 np.seterr(all='ignore')
 
-path, dirs, files = next(os.walk("F:\Thesis\Images\Antarctic\\2018-2019"))
+path, dirs, files = next(os.walk("PATH_TO_DIRECTORY_OF_IMAGES"))
 print(f"Found {len(files)} files.")
 a = []
 
@@ -34,7 +43,10 @@ for i, j in enumerate(files):
 	metadata['ch_5_constant_2']/(10**6)]
 
 	cal_coeffs = filedata.get_coefficients()
-	data_counts = filedata.get_data_counts()
+	try:
+		data_counts = filedata.get_data_counts()
+	except AttributeError:
+		continue #skip this file
 	data_counts = calibration.calibrate_image(rad_to_temp_coeffs4, rad_to_temp_coeffs5, cal_coeffs, data_counts, c4_cal_quality, c5_cal_quality)
 	subtracted = data_counts['b4_counts'] - data_counts['b5_counts']
 	s = stats(subtracted)
@@ -42,7 +54,7 @@ for i, j in enumerate(files):
 		metadata["start_of_data_set_utc_time_of_day"],
 		subtracted.size,s['total_dust_pixels'],s['mean_dust_pixel_value'],s['std_dust_pixel_value']])
 
-with open('2018-2019.csv', 'w', newline='') as outfile:
+with open('OUTFILE', 'w', newline='') as outfile:
 	wr = csv.writer(outfile)
 	wr.writerows(a)
 print(f"\nTotal time elapsed for {len(files)} files: {datetime.timedelta(seconds=time.time() - start)}s")

@@ -3,8 +3,10 @@
 Created on Sat Nov 30 00:30:25 2019
 
 @author: Matthew
-"""
 
+Calibration algorthm as specified in Chapter 3.4 of 
+"A Study of Polar Dust Loading from 2007 to 2019 using Satellite Thermal Data" by Matthew Bowen
+"""
 import numpy as np
 
 def calibrate_image(rad_coeffs4, rad_coeffs5, cal_coeffs, scans, c4_qual, c5_qual):
@@ -47,9 +49,6 @@ def calibrate_row(a0,a1,a2,row,rad_coeffs):
     #from page 7-8 (283) in NOAA KLM User's Guide
     
     for i, c in enumerate(row):
-        
         c = a0 + a1*c + a2*np.power(c,2)
-        
-        #row[i] = ((c2*vc)/np.log(1 + ((c1*np.power(vc,3))/c))- A)/B
         row[i] = A + B*((c2*vc)/np.log(1 + ((c1*np.power(vc,3))/c)))
     return row
