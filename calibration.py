@@ -51,4 +51,5 @@ def calibrate_row(a0,a1,a2,row,rad_coeffs):
     for i, c in enumerate(row):
         c = a0 + a1*c + a2*np.power(c,2)
         row[i] = A + B*((c2*vc)/np.log(1 + ((c1*np.power(vc,3))/c)))
+        #from EUMETSAT Data Guide page 34 and NOAA KLM guide page 7-10
     return row
