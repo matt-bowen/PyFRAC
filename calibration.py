@@ -21,7 +21,7 @@ def calibrate_image(rad_coeffs4, rad_coeffs5, cal_coeffs, scans, c4_qual, c5_qua
                                               scans['b4_counts'][i],
                                               rad_coeffs4)
     for i in range(len(scans['b5_counts'])):
-        if c5_qual[i] == 128:
+        if c5_qual[i] == bad_scan:
             scans['b5_counts'][i] = invalid_scan(scans['b5_counts'][i])
         else:
             scans['b5_counts'][i] = calibrate_row(cal_coeffs['IR5_a0'][i],
