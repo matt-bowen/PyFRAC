@@ -10,8 +10,9 @@ Calibration algorthm as specified in Chapter 3.4 of
 import numpy as np
 
 def calibrate_image(rad_coeffs4, rad_coeffs5, cal_coeffs, scans, c4_qual, c5_qual):
+    bad_scan = 128
     for i in range(len(scans['b4_counts'])):
-        if c4_qual[i] == 128:
+        if c4_qual[i] == bad_scan:
             scans['b4_counts'][i] = invalid_scan(scans['b4_counts'][i])
         else:
             scans['b4_counts'][i] = calibrate_row(cal_coeffs['IR4_a0'][i],
