@@ -14,11 +14,11 @@ from image import image
 import calibration
 
 def stats(image):
-    dust_pixels = image[image < 0]
-    return {'total_dust_pixels' : dust_pixels.size,
-            'mean_dust_pixel_value' : np.mean(dust_pixels),
-            'std_dust_pixel_value' : np.std(dust_pixels),
-            'percent_dust_pixels' : dust_pixels.size/image.size}
+	dust_pixels = image[image < 0]
+	return {'total_dust_pixels' : dust_pixels.size,
+	    'mean_dust_pixel_value' : np.mean(dust_pixels),
+	    'std_dust_pixel_value' : np.std(dust_pixels),
+	    'percent_dust_pixels' : dust_pixels.size/image.size}
 
 start = time.time()
 np.seterr(all='ignore')
